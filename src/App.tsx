@@ -23,8 +23,16 @@ function App() {
 
   // Remove
   function removeTask(id: string) {
-    let filteredTasks = tasks.filter((el) => el.id !== id);
+    let filteredTasks = tasks.filter((t) => t.id !== id);
     setTasks(filteredTasks);
+  }
+
+  // Change status
+  function changeTaskStatus(id: string, isDone: boolean) {
+    let task = tasks.find((t) => t.id === id);
+    if (task) task.isDone = isDone;
+
+    setTasks([...tasks]);
   }
 
   // Filter
@@ -47,6 +55,8 @@ function App() {
         removeTask={removeTask}
         tasks={tasksForTodoList}
         addTask={addTask}
+        changeTaskStatus={changeTaskStatus}
+        filter={filter}
       />
     </div>
   );
