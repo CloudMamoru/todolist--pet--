@@ -63,13 +63,24 @@ function App() {
     setTasksObj({ ...tasksObj });
   }
 
-  // Change status for task
+  // Change task status
   function changeTaskStatus(todolistId: string, id: string, isDone: boolean) {
     let tasks = tasksObj[todolistId];
 
     let task = tasks.find((t) => t.id === id);
     if (task) {
       task.isDone = isDone;
+      setTasksObj({ ...tasksObj });
+    }
+  }
+
+  // Change task title
+  function changeTaskTitle(todolistId: string, id: string, title: string) {
+    let tasks = tasksObj[todolistId];
+
+    let task = tasks.find((t) => t.id === id);
+    if (task) {
+      task.title = title;
       setTasksObj({ ...tasksObj });
     }
   }
@@ -100,6 +111,15 @@ function App() {
     setTodolists([todolist, ...todolists]);
   }
 
+  // Change todolist title
+  function changeTodolistTitle(todolistId: string, title: string) {
+    const todolist = todolists.find((tl) => tl.id === todolistId);
+    if (todolist) {
+      todolist.title = title;
+      setTodolists([...todolists]);
+    }
+  }
+
   return (
     <div className='App'>
       <AddItemForm addItem={addTodolist} />
@@ -120,9 +140,11 @@ function App() {
             tasks={tasksForTodoList}
             removeTodolist={removeTodolist}
             changeFilter={changeFilter}
+            changeTodolistTitle={changeTodolistTitle}
             addTask={addTask}
             removeTask={removeTask}
             changeTaskStatus={changeTaskStatus}
+            changeTaskTitle={changeTaskTitle}
           />
         );
       })}
