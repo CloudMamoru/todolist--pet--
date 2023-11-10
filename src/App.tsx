@@ -21,12 +21,12 @@ export type TaskType = {
   title: string;
   isDone: boolean;
 };
-type TodolistType = {
+export type TodolistType = {
   id: string;
   title: string;
   filter: FilterValuesType;
 };
-type TasksStateType = {
+export type TasksStateType = {
   [key: string]: Array<TaskType>;
 };
 
@@ -67,18 +67,18 @@ function App() {
   }
 
   // Remove task
-  function removeTask(todolistId: string, id: string) {
+  function removeTask(todolistId: string, taskId: string) {
     let tasks = tasksObj[todolistId];
-    let filteredTasks = tasks.filter((t) => t.id !== id);
+    let filteredTasks = tasks.filter((t) => t.id !== taskId);
     tasksObj[todolistId] = filteredTasks;
     setTasksObj({ ...tasksObj });
   }
 
   // Change task status
-  function changeTaskStatus(todolistId: string, id: string, isDone: boolean) {
+  function changeTaskStatus(todolistId: string, taskId: string, isDone: boolean) {
     let tasks = tasksObj[todolistId];
 
-    let task = tasks.find((t) => t.id === id);
+    let task = tasks.find((t) => t.id === taskId);
     if (task) {
       task.isDone = isDone;
       setTasksObj({ ...tasksObj });
@@ -86,10 +86,10 @@ function App() {
   }
 
   // Change task title
-  function changeTaskTitle(todolistId: string, id: string, title: string) {
+  function changeTaskTitle(todolistId: string, taskId: string, title: string) {
     let tasks = tasksObj[todolistId];
 
-    let task = tasks.find((t) => t.id === id);
+    let task = tasks.find((t) => t.id === taskId);
     if (task) {
       task.title = title;
       setTasksObj({ ...tasksObj });
@@ -105,8 +105,7 @@ function App() {
 
   // Delete todolist
   function removeTodolist(todolistId: string) {
-    let filteredTodolist = todolists.filter((tl) => tl.id !== todolistId);
-    setTodolists(filteredTodolist);
+    setTodolists(todolists.filter((tl) => tl.id !== todolistId));
     delete tasksObj[todolistId];
     setTasksObj({ ...tasksObj });
   }
